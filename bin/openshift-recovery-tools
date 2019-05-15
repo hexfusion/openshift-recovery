@@ -175,20 +175,6 @@ EOF
   echo "${TEMPLATE}" > $ETCD_STATIC_RESOURCES/.recoveryconfig
 }
 
-# download and test etcdctl from upstream release assets
-dl_etcdctl() {
-  ETCD_VER=$1
-  GOOGLE_URL=https://storage.googleapis.com/etcd
-  DOWNLOAD_URL=${GOOGLE_URL}
-
-  echo "Downloading etcdctl binary.."
-  curl -s -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o $ASSET_DIR/tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz \
-    && tar -xzf $ASSET_DIR/tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C $ASSET_DIR/shared --strip-components=1 \
-    && mv $ASSET_DIR/shared/etcdctl $ASSET_DIR/bin \
-    && rm $ASSET_DIR/shared/etcd \
-    && ETCDCTL_API=3 $ASSET_DIR/bin/etcdctl version
-}
-
 # add member cluster
 etcd_member_add() {
   source  /run/etcd/environment
