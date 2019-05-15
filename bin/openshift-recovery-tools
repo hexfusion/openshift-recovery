@@ -47,7 +47,7 @@ backup_etcd_client_certs() {
 # backup current etcd-member pod manifest
 backup_manifest() {
   if [ -e "${ASSET_DIR}/backup/etcd-member.yaml" ]; then
-    echo "etcd-member.yaml in found ${ASSET_DIR}/backup/"
+    echo "etcd-member.yaml found in ${ASSET_DIR}/backup/"
   else
     echo "Backing up ${ETCD_MANIFEST} to ${ASSET_DIR}/backup/"
     cp ${ETCD_MANIFEST} ${ASSET_DIR}/backup/
