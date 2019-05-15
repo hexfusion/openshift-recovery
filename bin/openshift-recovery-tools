@@ -153,7 +153,7 @@ gen_config() {
   CERT=$(base64 $ASSET_DIR/backup/etcd-client.crt | tr -d '\n')
   KEY=$(base64 $ASSET_DIR/backup/etcd-client.key | tr -d '\n')
 
-  read -r -d '' TEMPLATE << EOF
+  read -r -d '' KUBE_TEMPLATE << EOF
 clusters:
 - cluster:
     certificate-authority-data: ${CA}
@@ -172,7 +172,7 @@ users:
     client-certificate-data: ${CERT}
     client-key-data: ${KEY}
 EOF
-  echo "${TEMPLATE}" > $ETCD_STATIC_RESOURCES/.recoveryconfig
+  echo "${KUBE_TEMPLATE}" > $ETCD_STATIC_RESOURCES/.recoveryconfig
 }
 
 # add member cluster
