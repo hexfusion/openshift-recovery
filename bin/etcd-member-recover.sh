@@ -39,8 +39,8 @@ ETCD_VERSION=v3.3.10
 ETCD_DATA_DIR=/var/lib/etcd
 ETCD_STATIC_RESOURCES="${CONFIG_FILE_DIR}/static-pod-resources/etcd-member"
 
-SHARED=/usr/local/shared/openshift-recovery
-TEMPLATE="$SHARED/templates/etcd-generate-certs.yaml.template"
+SHARED=/usr/local/share/openshift-recovery
+TEMPLATE="$SHARED/template/etcd-generate-certs.yaml.template"
 
 source "/usr/local/bin/openshift-recovery-tools"
 
