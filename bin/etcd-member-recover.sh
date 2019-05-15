@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-set -o errexit
-set -o pipefail
+# TODO fixme
+#set -o errexit
+#set -o pipefail
 
 # example
 # export SETUP_ETCD_ENVIRONMENT=$(oc adm release info --image-for setup-etcd-environment --registry-config=./config.json)
