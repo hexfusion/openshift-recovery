@@ -31,6 +31,7 @@ function run {
   init
   populate_template '__MASTER_HOSTNAME__' "$MASTER_HOSTNAME" "$TEMPLATE" "$TEMPLATE_TMP"
   populate_template '__KUBE_ETCD_SIGNER_SERVER__' "$KUBE_ETCD_SIGNER_SERVER" "$TEMPLATE_TMP" "$ASSET_DIR/manifests/kube-etcd-cert-signer.yaml"
+  echo "Tokenized template now ready: $ASSET_DIR/manifests/kube-etcd-cert-signer.yaml"
 }
 
 run
