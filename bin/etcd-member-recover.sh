@@ -12,7 +12,6 @@ if [[ $EUID -ne 0 ]]; then
   echo "This script must be run as root"
   exit 1
 fi
-
 : ${SETUP_ETCD_ENVIRONMENT:?"Need to set SETUP_ETCD_ENVIRONMENT"}
 : ${KUBE_CLIENT_AGENT:?"Need to set KUBE_CLIENT_AGENT"}
 
@@ -43,11 +42,6 @@ ETCD_STATIC_RESOURCES="${CONFIG_FILE_DIR}/static-pod-resources/etcd-member"
 SHARED=/usr/local/shared/openshift-recovery
 TEMPLATE="$SHARED/templates/etcd-generate-certs.yaml.template"
 
-if [ -z "$DISCOVERY_DOMAIN" ]; then
-  echo "Discovery domain can not be extracted from $ASSET_DIR/backup/etcd-member.yaml"
-  exit 1
-fi
-
 source "/usr/local/bin/openshift-recovery-tools"
 
 function run {
@@ -61,6 +55,10 @@ function run {
   gen_config
   download_cert_recover_template
   DISCOVERY_DOMAIN=$(grep -oP '(?<=discovery-srv=).*[^"]' $ASSET_DIR/backup/etcd-member.yaml )
+  if [ -z "$DISCOVERY_DOMAIN" ]; then
+    echo "Discovery domain can not be extracted from $ASSET_DIR/backup/etcd-member.yaml"
+    exit 1
+  fi
   CLUSTER_NAME=$(echo ${DISCOVERY_DOMAIN} | grep -oP '^.*?(?=\.)')
   populate_template '__ETCD_DISCOVERY_DOMAIN__' "$DISCOVERY_DOMAIN" "$TEMPLATE" "$ASSET_DIR/tmp/etcd-generate-certs.stage1"
   populate_template '__SETUP_ETCD_ENVIRONMENT__' "$SETUP_ETCD_ENVIRONMENT" "$ASSET_DIR/tmp/etcd-generate-certs.stage1" "$ASSET_DIR/tmp/etcd-generate-certs.stage2"
