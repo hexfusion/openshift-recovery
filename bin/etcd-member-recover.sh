@@ -52,6 +52,8 @@ function run {
   backup_etcd_client_certs
   stop_etcd
   backup_data_dir
+  backup_certs
+  remove_certs
   gen_config
   download_cert_recover_template
   DISCOVERY_DOMAIN=$(grep -oP '(?<=discovery-srv=).*[^"]' $ASSET_DIR/backup/etcd-member.yaml )

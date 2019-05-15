@@ -77,8 +77,10 @@ backup_data_dir() {
 
 # backup etcd peer, server and metric certs
 backup_certs() {
-  COUNT=$(ls $ASSET_DIR/backup/system\:etcd-* 2>/dev/null | wc -l)
-  if [ "$COUNT" -gt 1 ]; then
+  COUNT=$(ls $ETCD_STATIC_RESOURCES/system\:etcd-* 2>/dev/null | wc -l)
+  BACKUP_COUNT=$(ls $ASSET_DIR/backup/system\:etcd-* 2>/dev/null | wc -l)
+
+  if [ "$BACKUP_COUNT" -gt 1 ]; then
     echo "etcd TLS certificate backups found in $ASSET_DIR/backup.."
   elif [ "$COUNT" -eq 0 ]; then
     echo "etcd TLS certificates not found, backup skipped.."
@@ -113,6 +115,14 @@ stop_etcd() {
 remove_data_dir() {
   echo "Removing etcd data-dir ${ETCD_DATA_DIR}"
   rm -rf ${ETCD_DATA_DIR}
+}
+
+remove_certs() {
+  COUNT=$(ls $ETCD_STATIC_RESOURCES/system\:etcd-* 2>/dev/null | wc -l)
+  if [ "$COUNT" -gt 1 ]; then
+     echo "Removing etcd certs.."
+     rm "$ETCD_STATIC_RESOURCES/system\:etcd-*"
+  fi
 }
 
 restore_snapshot() {
@@ -182,8 +192,7 @@ etcd_member_add() {
   HOSTDOMAIN=$(hostname -d)
   ETCD_NAME=etcd-member-${HOSTNAME}.${HOSTDOMAIN}
 
-  if [ -e $ASSET_DIR/backup/etcd/member/snap/db ]; then
-    echo -e "Backup found removing exising data-dir"
+  if [ -d "$ETCD_DATA_DIR" ]; then
     rm -rf $ETCD_DATA_DIR
   fi
 
