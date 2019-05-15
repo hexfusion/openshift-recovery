@@ -21,7 +21,7 @@ fi
 MASTER_HOSTNAME=$1
 
 ASSET_DIR=./assets
-SHARED=/usr/local/shared/openshift-recovery
+SHARED=/usr/local/share/openshift-recovery
 TEMPLATE=$SHARED/template/kube-etcd-cert-signer.yaml.template
 TEMPLATE_TMP=$ASSET_DIR/tmp/kube-etcd-cert-signer.yaml.stage1
 
