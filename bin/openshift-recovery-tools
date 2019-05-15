@@ -105,7 +105,7 @@ stop_etcd() {
 
   for name in {etcd-member,etcd-metric}
   do
-    while [ "$(crictl pods -name $name | wc -l)" -gt 1  ]; do
+    while [ ! -z "$(crictl pods -name $name --state Ready -q)" ]; do
       echo "Waiting for $name to stop"
       sleep 10
     done
@@ -163,7 +163,7 @@ gen_config() {
   CERT=$(base64 $ASSET_DIR/backup/etcd-client.crt | tr -d '\n')
   KEY=$(base64 $ASSET_DIR/backup/etcd-client.key | tr -d '\n')
 
-  read -r -d '' KUBE_TEMPLATE << EOF
+  cat > $ETCD_STATIC_RESOURCES/.recoveryconfig << EOF
 clusters:
 - cluster:
     certificate-authority-data: ${CA}
@@ -182,7 +182,6 @@ users:
     client-certificate-data: ${CERT}
     client-key-data: ${KEY}
 EOF
-  echo "${KUBE_TEMPLATE}" > $ETCD_STATIC_RESOURCES/.recoveryconfig
 }
 
 # add member cluster
@@ -263,7 +262,7 @@ stop_cert_recover() {
   fi
 
   for name in {generate-env,generate-certs}; do
-    while [ "$(crictl pods -name $name | wc -l)" -gt 1  ]; do
+    while [ ! -z "$(crictl pods -name $name --state Ready -q)" ]; do
       echo "Waiting for $name to stop"
       sleep 10
     done
