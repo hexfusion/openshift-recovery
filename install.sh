@@ -7,6 +7,8 @@ fi
 
 TEMPLATES=/usr/local/share/openshift-restore/templates
 
+rm /usr/local/bin/etcd-member-recover.sh /usr/local/bin/etcd-snapshot-restore.sh /usr/local/bin/openshift-recovery-tools /usr/local/bin/tokenize-signer.sh
+
 # scripts
 curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/etcd-member-recover.sh -o /usr/local/bin/etcd-member-recover.sh
 chmod 755 /usr/local/bin/etcd-member-recover.sh
@@ -14,7 +16,7 @@ chmod 755 /usr/local/bin/etcd-member-recover.sh
 curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/etcd-snapshot-restore.sh -o /usr/local/bin/etcd-snapshot-restore.sh
 chmod 755 /usr/local/bin/etcd-snapshot-restore.sh
 
-curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/openshift-recovery-tools -o /usr/local/bin/etcd-snapshot-restore.sh
+curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/openshift-recovery-tools -o /usr/local/bin/openshift-recovery-tools
 
 curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/tokenize-signer.sh -o /usr/local/bin/tokenize-signer.sh
 chmod 755 /usr/local/bin/tokenize-signer.sh
