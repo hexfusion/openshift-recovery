@@ -218,10 +218,10 @@ populate_template() {
   OUT="$4"
 
   echo "Populating template $TEMPLATE"
+  echo "FIND: $FIND REPLACE: $REPLACE TEMPLATE: $TEMPLATE OUT: $OUT"
 
   if [ -z "$FIND" ] || [ -z "$REPLACE" ] || [ -z "$TEMPLATE" ] || [ -z "$OUT" ]; then
     echo "populate_template requires 4 arguments FIND, REPLACE, TEMPLATE and OUT"
-    echo "FIND: $FIND REPLACE: $REPLACE TEMPLATE: $TEMPLATE OUT: $OUT"
     exit 1
   elif [ ! -f "$TEMPLATE" ]; then
     echo "template $TEMPLATE does not exist"
@@ -231,7 +231,7 @@ populate_template() {
   TMP_FILE=$(date +"%m-%d-%Y-%H%M")
   cp $TEMPLATE "$ASSET_DIR/tmp/${TMP_FILE}"
 
-  sed -i "s@${FIND}@${REPLACE}@" "$ASSET_DIR/tmp/${TMP_FILE}"
+  sed -i "s|${FIND}|${REPLACE}|" "$ASSET_DIR/tmp/${TMP_FILE}"
   mv "$ASSET_DIR/tmp/${TMP_FILE}" "$OUT"
 }
 
