@@ -121,7 +121,7 @@ remove_certs() {
   COUNT=$(ls $ETCD_STATIC_RESOURCES/system\:etcd-* 2>/dev/null | wc -l)
   if [ "$COUNT" -gt 1 ]; then
      echo "Removing etcd certs.."
-     rm "$ETCD_STATIC_RESOURCES/system\:etcd-*"
+     rm -f $ETCD_STATIC_RESOURCES/system\:etcd-*
   fi
 }
 
