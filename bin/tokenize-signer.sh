@@ -10,7 +10,7 @@ set -o pipefail
 : ${KUBE_ETCD_SIGNER_SERVER:?"Need to set KUBE_ETCD_SIGNER_SERVER"}
 
 usage () {
-    echo 'Hostname required: KUBE_ETCD_SIGNER_SERVER=$pullspec ./tokenize-signer.sh ip-10-0-134-97'
+    echo 'Hostname required: ./tokenize-signer.sh ip-10-0-134-97'
     exit
 }
 
@@ -24,6 +24,8 @@ ASSET_DIR=./assets
 SHARED=/usr/local/shared/openshift-recovery
 TEMPLATE=$SHARED/template/kube-etcd-cert-signer.yaml.template
 TEMPLATE_TMP=$ASSET_DIR/tmp/kube-etcd-cert-signer.yaml.stage1
+
+source "/usr/local/bin/openshift-recovery-tools"
 
 function run {
   init

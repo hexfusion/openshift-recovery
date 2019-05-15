@@ -27,7 +27,7 @@ ETCD_DATA_DIR=/var/lib/etcd
 ETCD_MANIFEST="${MANIFEST_DIR}/etcd-member.yaml"
 ETCD_STATIC_RESOURCES="${CONFIG_FILE_DIR}/static-pod-resources/etcd-member"
 
-source "/usr/local/bin/recovery-tools"
+source "/usr/local/bin/openshift-recovery-tools"
 
 function run {
   init
