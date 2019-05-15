@@ -5,7 +5,7 @@ set -o pipefail
 
 # example
 # export KUBE_ETCD_SIGNER_SERVER=$(oc adm release info --image-for kube-etcd-signer-server --registry-config=./config.json)
-# ./tokenize-signer.sh ip-10-0-134-97 
+# sudo -E ./tokenize-signer.sh ip-10-0-134-97
 
 : ${KUBE_ETCD_SIGNER_SERVER:?"Need to set KUBE_ETCD_SIGNER_SERVER"}
 
