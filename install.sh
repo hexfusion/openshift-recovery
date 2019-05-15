@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-TEMPLATES=/usr/local/share/openshift-restore/templates
+TEMPLATES=/usr/local/share/openshift-recovery/template
 
 rm /usr/local/bin/etcd-member-recover.sh /usr/local/bin/etcd-snapshot-restore.sh /usr/local/bin/openshift-recovery-tools /usr/local/bin/tokenize-signer.sh
 
