@@ -4,7 +4,7 @@ init() {
   ASSET_BIN=${ASSET_DIR}/bin
   if [ ! -d "$ASSET_BIN" ]; then
     echo "Creating asset directory ${ASSET_DIR}"
-    for dir in {bin,tmp,shared,backup,templates,restore}; do
+    for dir in {bin,tmp,shared,backup,templates,restore,manifests}; do
       /usr/bin/mkdir -p ${ASSET_DIR}/${dir}
     done
   fi
