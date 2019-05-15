@@ -268,3 +268,41 @@ stop_cert_recover() {
     done
   done
 }
+
+stop_static_pods() {
+  echo "Stopping all static pods.."
+
+  if [ ! -d "$MANIFEST_STOPPED_DIR" ]; then
+    mkdir $MANIFEST_STOPPED_DIR
+  fi
+
+  find ${MANIFEST_DIR} -maxdepth 1 -type f -printf "%f\n" > $STOPPED_STATIC_PODS
+
+  while read STATIC_POD; do
+    echo "..stopping $STATIC_POD"
+    mv ${MANIFEST_DIR}/${STATIC_POD} $MANIFEST_STOPPED_DIR
+  done <$STOPPED_STATIC_PODS
+}
+
+start_static_pods() {
+  echo "Starting static pods.."
+  while read STATIC_POD; do
+    echo "..starting $STATIC_POD"
+    mv ${MANIFEST_STOPPED_DIR}/${STATIC_POD} $MANIFEST_DIR
+  done <$STOPPED_STATIC_PODS
+}
+
+stop_kubelet() {
+  echo "Stopping kubelet.."
+  systemctl stop kubelet.service
+}
+
+start_kubelet() {
+  echo "Starting kubelet.."
+  systemctl start kubelet.service
+}
+
+stop_all_containers() {
+  echo "Stopping all containers.."
+  crictl ps -q | xargs -r crictl stop
+}

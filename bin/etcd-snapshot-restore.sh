@@ -26,6 +26,7 @@ ETCDCTL="${ASSET_DIR}/bin/etcdctl"
 ETCD_DATA_DIR=/var/lib/etcd
 ETCD_MANIFEST="${MANIFEST_DIR}/etcd-member.yaml"
 ETCD_STATIC_RESOURCES="${CONFIG_FILE_DIR}/static-pod-resources/etcd-member"
+STOPPED_STATIC_PODS="${ASSET_DIR}/tmp/stopped-static-pods"
 
 source "/usr/local/bin/openshift-recovery-tools"
 
@@ -33,11 +34,15 @@ function run {
   init
   dl_etcdctl
   backup_manifest
+  stop_static_pods
   stop_etcd
+  stop_kubelet
+  stop_all_containers
   backup_data_dir
   remove_data_dir
   restore_snapshot
-  start_etcd
+  start_static_pods
+  start_kubelet
 }
 
 run
