@@ -5,6 +5,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+TEMPLATES=/usr/local/share/openshift-restore/templates
+
+# scripts
 curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/etcd-member-recover.sh -o /usr/local/bin/etcd-member-recover.sh
 chmod 755 /usr/local/bin/etcd-member-recover.sh
 
@@ -13,7 +16,13 @@ chmod 755 /usr/local/bin/etcd-snapshot-restore.sh
 
 curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/openshift-recovery-tools -o /usr/local/bin/etcd-snapshot-restore.sh
 
-curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/tokenize-signer.sh -o /usr/local/bin//tokenize-signer.sh
+curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/bin/tokenize-signer.sh -o /usr/local/bin/tokenize-signer.sh
 chmod 755 /usr/local/bin/tokenize-signer.sh
 
+mkdir -p $TEMPLATES
+
+# templates
+curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/manifests/etcd-generate-certs.yaml.template -o $TEMPLATES/etcd-generate-certs.yaml.template
+
+curl -s https://raw.githubusercontent.com/hexfusion/openshift-recovery/unify/manifests/kube-etcd-cert-signer.yaml.template -o $TEMPLATES/kube-etcd-cert-signer.yaml.template
 
