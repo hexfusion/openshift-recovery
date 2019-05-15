@@ -218,7 +218,6 @@ populate_template() {
   OUT="$4"
 
   echo "Populating template $TEMPLATE"
-  echo "FIND: $FIND REPLACE: $REPLACE TEMPLATE: $TEMPLATE OUT: $OUT"
 
   if [ -z "$FIND" ] || [ -z "$REPLACE" ] || [ -z "$TEMPLATE" ] || [ -z "$OUT" ]; then
     echo "populate_template requires 4 arguments FIND, REPLACE, TEMPLATE and OUT"
